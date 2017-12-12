@@ -43,7 +43,7 @@
         <p><th align="left"><%= course.title %></th></p>
       </tr>
       <tr>
-        <th><%= link_to 'Show', course %> | <%= link_to 'Destroy', course %> | <%= link_to 'Assignments',  course_assignments_path(course)%></th>
+        <th><%= link_to 'Show', course %> | <%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %> | <%= link_to 'Assignments',  course_assignments_path(course)%></th>
       </tr>
     </table>
     <%end %>
