@@ -1,0 +1,28 @@
+AllCops:
+  Excludes:
+    - attributes/*.rb
+    - db/*.rb
+    - db/migrate/*.rb
+    - config/initializers/*.rb
+    - config/puma/*.rb
+    - config/puma.rb
+    - config/application/*.rb
+    - config/application.rb
+    - config/environments/*.rb
+    - test/controllers/*.rb
+    - bin/spring
+    - test/test_helper.rb
+    - app/helpers/*.rb
+    - Gemfile
+    - Rakefile
+    - app/views/users/show.json.jbuilder
+    - app/views/courses/show.json.jbuilder
+    - app/views/assignments/show.json.jbuilder
+    - app/views/assignments/_assignment.json.jbuilder
+    - app/controllers/users/*.rb
+    - app/controllers/admins/*.rb
+
+
+Metrics/LineLength:
+  Max: 95
+

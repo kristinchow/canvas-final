@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @assignment.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @assignment.description %>
+</p>
+
+<p>
+  <strong>Points:</strong>
+  <%= @assignment.points %>
+</p>
+
+<p>
+  <strong>Duedate:</strong>
+  <%= @assignment.duedate %>
+</p>
+
+<p>
+  <strong>Submitted:</strong>
+  <%if(current_user)%>
+  <% @photo = Photo.find_by(:assignment_id => @assignment.id, :user_id => current_user.id) %>
+  <% if !@photo.nil?%>
+            <td>Yes</td>
+        <% elsif DateTime.current > @assignment.duedate %>
+            <td>No, past due date</td>
+        <% else %>
+            <td>No</td>
+        <% end %>
+  <% end %>
+
+</p>
+
+<% if (current_user) %>
+<% if DateTime.current < @assignment.duedate %>
+<td><%= link_to 'Upload Submission', new_photo_path(:assignment_id => @assignment.id, :user_id => current_user.id) %></td>
+<% end %>
+<%end%>
+
+<% if (@course.admin == (current_admin)) %>
+<td><%= link_to 'Edit', edit_course_assignment_path(@assignment) %></td>
+<% end %>
+<%= link_to 'Back', course_assignments_path %>

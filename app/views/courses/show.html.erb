@@ -1,0 +1,106 @@
+<p id="notice"><%= notice %></p>
+
+<style type="">
+p {
+   margin: 5px 0;
+}
+</style>
+
+<br></br>
+<p>
+  <strong>Title:</strong>
+  <%= @course.title %>
+</p>
+
+<p>
+  <strong>Instructor:</strong>
+  <%= @course.admin.email[0..@course.admin.email.index('@')-1] %>
+</p>
+
+<p>
+  <%= @course.description %>
+</p>
+
+
+<h4>Student List:</h4>
+<table>
+  <tr>
+    <% if @course.users.empty? %>
+        <th>No students have added this course.</th>
+    <% else %>
+        <% @course.users.each do |user| %>
+            <p<th><%=link_to user.email[0..user.email.index('@')-1], user%></th></p>
+         <% end %>
+    <% end %>
+  </tr>
+</table>
+
+<h4>Upcoming Assignments:</h4>
+<table>
+  <tr>
+    <% if @course.assignments.empty? %>
+        <th>No current assignments.</th>
+    <% else %>
+        <% @course.assignments.each do |assignment| %>
+            <% if DateTime.current < assignment.duedate %>
+              <p<th><%=link_to assignment.name, course_assignment_path(@course, assignment)%></th></p>
+            <% end %>
+         <% end %>
+    <% end %>
+  </tr>
+</table>
+
+<h4>Past Assignments:</h4>
+<table>
+  <tr>
+    <% if @course.assignments.empty? %>
+        <th>No current assignments.</th>
+    <% else %>
+        <% @course.assignments.each do |assignment| %>
+            <% if DateTime.current > assignment.duedate %>
+              <p<th><%=link_to assignment.name, course_assignment_path(@course, assignment)%></th></p>
+            <% end %>
+         <% end %>
+    <% end %>
+  </tr>
+</table>
+
+<h4>New Assignment:</h4>
+<% if (@course.admin == (current_admin)) %>
+<%= form_for [@course, @assignment] do |f| %>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :points %>
+    <%= f.text_field :points %>
+  </div>
+
+  <div class="field">
+    <%= f.label :duedate %>
+    <%= f.text_field :duedate %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<% end %>
+
+
+<% if (@course.admin == (current_admin)) %>
+<%= link_to 'Edit', edit_course_path(@course) %> |
+<%= link_to 'Back', courses_path %>
+<% else %>
+<%= link_to 'Back', courses_path %>
+<% end %>
+
+
+

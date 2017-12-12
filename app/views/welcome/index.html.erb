@@ -1,0 +1,59 @@
+<% if user_signed_in?%>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <h1 style="color:#990000;margin: 40px 0px;">DashBoard</h1>
+      <hr></hr>
+    </div>
+  </div>
+  <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+  <tbody>
+    <% current_user.courses.each do |course| %>
+    <table class="tg">
+      <tr>
+        <p><th align="left"><%= course.title %></th></p>
+      </tr>
+      <tr>
+        <th><%= link_to 'Show', course %> | <%= link_to 'Assignments',  course_assignments_path(course)%></th>
+      </tr>
+    </table>
+    <%end %>
+  </tbody>
+<% elsif admin_signed_in?%>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <h1 style="color:#990000;margin: 40px 0px;">DashBoard</h1>
+      <hr></hr>
+    </div>
+  </div>
+   <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+  <tbody>
+    <% current_admin.courses.each do |course| %>
+    <table class="tg">
+      <tr>
+        <p><th align="left"><%= course.title %></th></p>
+      </tr>
+      <tr>
+        <th><%= link_to 'Show', course %> | <%= link_to 'Destroy', course %> | <%= link_to 'Assignments',  course_assignments_path(course)%></th>
+      </tr>
+    </table>
+    <%end %>
+  </tbody>
+<% else %>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <h1 style="color:#990000;margin: 20px 0px;">Welcome to Canvas!</h1>
+      <hr></hr>
+      <h1 style="margin: 20px 0px;">Sign up or log in to get started!</h1>
+    </div>
+  </div>
+<% end %>
